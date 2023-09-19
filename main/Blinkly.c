@@ -1,7 +1,8 @@
 // Header files
 #include <stdio.h>
 #include "driver/gpio.h"
-#include <rom/ets_sys.h>// For ets_delay_us
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 #define builtin_led GPIO_NUM_2 //defining a macro for GPIO pin number 2
 
@@ -16,12 +17,11 @@ void app_main(void)
         gpio_set_level(builtin_led, 1); // To turn On the LED
 
         printf("The led is now ON\n");
-        ets_delay_us(1000000); // delay of 1 second (1,000,000 microseconds)
+        vTaskDelay(1000 / portTICK_RATE_MS); // for Delay of 1 sec
 
         gpio_set_level(builtin_led, 0); // To turn Off the LED
 
         printf("The led is now OFF\n");
-        ets_delay_us(1000000);
-
+        vTaskDelay(1000 / portTICK_RATE_MS);
     }
 }

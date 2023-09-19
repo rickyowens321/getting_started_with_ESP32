@@ -8,7 +8,7 @@ The ESP32 board usually has a built-in LED connected to GPIO pin number 2. In th
 1. Header Files:
     + `<stdio.h>`: Standard input-output header for functions like `printf`.
     + `"driver/gpio.h"`: Header file for the GPIO driver functions provided by ESP-IDF.
-    + `"esp_system.h"`: Provides system-specific functions, including `ets_delay_us` for microsecond delays.
+    + `"freertos/task.h"` and `freertos/FreeRTOS.h`:  gaining access to a multitude of FreeRTOS functionalities. This includes functions to manage tasks, queues, semaphores, timers, etc.
 2. Macro Definitions:
     + `#define builtin_led GPIO_NUM_2`: This defines a macro to replace `builtin_led` with `GPIO_NUM_2`, which represents the GPIO number where the built-in LED is connected.
 3. Main Function:
@@ -17,7 +17,7 @@ The ESP32 board usually has a built-in LED connected to GPIO pin number 2. In th
     + `gpio_set_direction`: This function sets the direction (input or output) of a specified GPIO. Here, it's used to set the built-in LED's GPIO as an output.
     + An infinite while loop is used to keep toggling the LED's state:
         + `gpio_set_level`: Sets the level (high or low) of a specified GPIO. A high level turns the LED on, and a low level turns it off.
-        + `ets_delay_us`: Introduces a delay in microseconds. In this example, it delays for 1,000,000 microseconds (or 1 second) between toggling the LED's state.
+        + `vTaskDelay`: Introduces a delay in microseconds. portTICK_PERIOD_MS is a macro that gives the number of ticks per millisecond, making it easier to specify delay times in terms of milliseconds.between toggling the LED's state.
 
 ## Building and Running
 + Navigate to the project directory.
